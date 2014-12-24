@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=768, minimal-ui">
+<title>Irene</title>
+<link rel="apple-touch-icon" sizes="152x152" href="icon.png">
+<script src="js/external/zepto.js"></script>
+<script src="js/external/hammer.js"></script>
+<script src="js/external/colorGradient.js"></script>
+<script src="js/external/stats.js"></script>
+<script src="js/external/howler.js"></script>
+<script src="js/external/tween.js"></script>
+
+<script src="js/two.js"></script>
+<script src="js/twoParallax.js"></script>
+<script src="js/twoParticle.js"></script>
+
+<script src="js/utils.js"></script>
+
+<script src="js/tweenPlugins.js"></script>
+
+<script src="js/Irene.js"></script>
+<script src="js/IreneAudio.js"></script>
+<script src="js/IreneParticle.js"></script>
+<script src="js/IreneTouch.js"></script>
+<script src="js/IreneFlicker.js"></script>
+<script src="js/IreneWiggle.js"></script>
+<script src="js/IreneAnimation.js"></script>
+<script src="js/IreneSwing.js"></script>
+<script src="js/IreneBacklink.js"></script>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#wrapper {
+  overflow:hidden;
+}
+
+@font-face {
+  font-family: 'Oswald-Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Oswald Bold'), local('Oswald-Bold'), url(fonts/oswald.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'PTMono-Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: local('PT Mono'), local('PTMono-Regular'), url(fonts/ptmono.woff) format('woff');
+}
+
+</style>
+
+<body>
+<div id="loading"><img src="loading.svg"></div>
+<div id="wrapper"></div>
+<div id="hiddenWrapper" style="display:none"></div>
+
+<script>
+var I = new Irene(),
+    wrapSrc = document.getElementById('hiddenWrapper');
+    wrapOut = document.getElementById('wrapper');
+
+I.loadSVG('No military2 copy.svg', wrapSrc, startSetup);
+
+function startSetup() {
+  I.interpretSVG(wrapSrc, wrapOut);
+  wrapSrc.remove();
+  wrapSrc = null;
+  I.two.update();
+  I.setupAnimation();
+  I.setupWiggle();
+  I.setupSwing();
+  I.setupFlicker();
+  I.setupAudio();
+
+  I.setupPerspective();
+  I.moveCloudsToFront();
+  I.setupTouchHandling();
+  I.setupAnimation();
+  //I.showStats();
+  I.setupRain();
+  I.setupBacklink();
+  I.start();
+
+  //goto(THIRDCITY);
+}
+
+function goto(x) {
+  I.landed = true;
+  I.curPos.y = 0;
+  I.two.update();
+  I.curPos.x = x;
+  I.movePerspective(I.curPos);
+  I.two.update();
+}
+
+function gotoRain() {
+  goto(230);
+}
+
+function gotoSand() {
+  goto(310);
+}
+
+function cur() {
+  console.log(I.curPos.x);
+}
+
+</script>

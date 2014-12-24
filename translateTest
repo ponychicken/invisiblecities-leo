@@ -1,0 +1,45 @@
+d.remove()
+d = I.two.makeRectangle(500,500,300,300)
+d.stroke = "#af0"
+d.fill = "transparent"
+m = d._matrix
+
+
+
+
+
+var swing = function (item, treshold, strength, fadeback) {
+  // Swing from -5 to 5
+  var pos = (item.swingPos * 0.1) - 0.05;
+  item._matrix.identity()
+              .translate(item.translation.x, item.translation.y)
+              .skewX(pos);
+
+  var newWidth = item.getBoundingClientRect().width;
+
+  item._matrix.translate(item.leftRight * 0.5 * (item.origWidth - newWidth), 0);
+
+  if (item.swingPos > 1 || item.swingPos < 0) {
+    item.swingPosDirection *= -1;
+  }
+
+  item.leftRight = (item.swingPos > 0.5) ? 1 : -1;
+
+  item.swingPos += 0.01 * item.swingPosDirection;
+};
+
+
+d.swingPos = Math.random();
+d.swingPosDirection = 1;
+d.origWidth = d.getBoundingClientRect().width;
+
+
+
+
+  this.two.bind('update', function(frameCount) {
+
+          swing(d);
+
+
+
+  });
